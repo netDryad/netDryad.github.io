@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>netDryad</title>
+    
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="robots" content="noodp" />
+
+<link rel="stylesheet" href="https://netDryad.github.io/style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="https://netDryad.github.io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://netDryad.github.io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://netDryad.github.io/favicon-16x16.png">
+<link rel="manifest" href="https://netDryad.github.io/site.webmanifest">
+
+    </head>
+
+<body class="">
+    <div class="container">
+        
+        <header class="header">
+            <div class="header__inner">
+                <div class="header__logo">
+                    
+                    <a href="https://netDryad.github.io" style="text-decoration: none;">
+                        <div class="logo">
+                            
+                            netDryad
+                            
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            
+            
+            
+        </header>
+        
+
+        <div class="content">
+            
+<div class="post">
+    
+    <h1 class="post-title"><a href="https://netDryad.github.io/ssh/">SSH</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2022-11-24
+        </span>
+
+    </div>
+
+    
+
+    
+        <div class="post-content">
+            <p>SSH keys can be used to connect other machines and services such as github.</p>
+<p><a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">Github SSH docs</a></p>
+<h1 id="checking-keys">Checking Keys</h1>
+<p>To check keys run:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">ls -al ~</span><span>/.ssh
+</span></code></pre>
+<p>Look for </p>
+<ul>
+<li>id_rsa.pub</li>
+<li>id_ecdsa.pub</li>
+<li>id_ed25519.pub</li>
+</ul>
+<p>To display them you can open them with any text editor or use <code>cat</code> to display in the terminal:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">cat ~</span><span>/.ssh/id_ed25519.pub
+</span></code></pre>
+<h1 id="new-keys">New Keys</h1>
+<p>To make a new key run:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">ssh-keygen -t</span><span> ed25519</span><span style="color:#ffb964;"> -C </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">your_email@example.com</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>If it is a legacy machine and doesn't support <code>Ed25519</code> try using RSA:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">ssh-keygen -t</span><span> rsa</span><span style="color:#ffb964;"> -b</span><span> 4096</span><span style="color:#ffb964;"> -C </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">your_email@example.com</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>After running the command you can save it to the default location. Also, it'll ask you to add a passphrase. This protects you incase someone else gains access to your computer. Also, look at the <a href="https://netDryad.github.io/ssh/#password">Password</a> section for more info on changing and updating passwords.</p>
+<h1 id="adding-keys-to-github">Adding Keys to Github</h1>
+<p>Go to your <a href="https://github.com/settings/keys">github settings</a> and select <code>SSH and GPG</code> keys. Click add a new SSH key and copy and paste your key.</p>
+<p>To find your key check the <a href="https://netDryad.github.io/ssh/#checking-keys">Checking Keys</a> section.</p>
+<p>When adding you can select the key type. Auth lets you use the SSH key to make commits without needing to use an auth token. Sign lets you use your SSH key to sign your commits. This replaces the need to use a GPG key to sign commits.</p>
+<h1 id="signing-git-commits">Signing Git Commits</h1>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> commit.gpgsign true
+</span><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> gpg.format ssh
+</span><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> user.signingkey /PATH/TO/.SSH/KEY.PUB
+</span></code></pre>
+<h1 id="ssh-tunnel">SSH Tunnel</h1>
+<p>To foward a port from a remote server to your local host run: </p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">ssh -N -f -L </span><span>&lt;tar-port&gt;:localhost:&lt;local-port&gt; root@47.115.190.143 
+</span></code></pre>
+<h1 id="password">Password</h1>
+<p>To add or change a passphrase run and follow the promts:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">ssh-keygen -p -f ~</span><span>/.ssh/id_ed25519
+</span><span>&gt; Enter </span><span style="color:#ffb964;">old</span><span> passphrase: </span><span style="color:#8fbfdc;">[</span><span>Type old passphrase</span><span style="color:#8fbfdc;">]
+</span><span>&gt; Key </span><span style="color:#ffb964;">has</span><span> comment </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">your_email@example.com</span><span style="color:#556633;">&#39;
+</span><span>&gt; Enter </span><span style="color:#ffb964;">new</span><span> passphrase (empty for no passphrase): </span><span style="color:#8fbfdc;">[</span><span>Type new passphrase</span><span style="color:#8fbfdc;">]
+</span><span>&gt; Enter </span><span style="color:#ffb964;">same</span><span> passphrase again: </span><span style="color:#8fbfdc;">[</span><span>Repeat the new passphrase</span><span style="color:#8fbfdc;">]
+</span><span>&gt; Your </span><span style="color:#ffb964;">identification</span><span> has been saved with the new passphrase.
+</span></code></pre>
+<p>To avoid entering the passphrase every time you connect, you can securely save your passphrase in the SSH agent. Run the following command to launch a SSH agent. </p>
+<blockquote>
+<p>Note: The ssh-agent process will continue to run until you log out, shut down your computer, or kill the process.</p>
+</blockquote>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">ssh-agent
+</span></code></pre>
+<p>If you want <code>ssh-agent</code> to forget your key after some time, you can configure it to do so by running:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">ssh-add -t </span><span>&lt;seconds&gt;
+</span></code></pre>
+<p>To automatically run <code>ssh-agent</code> on startup add the following to your <code>~/.profile</code> or <code>~/.bashrc</code>:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">env</span><span>=</span><span style="color:#ffb964;">~</span><span style="color:#99ad6a;">/.ssh/agent.env
+</span><span>
+</span><span style="color:#fad07a;">agent_load_env </span><span>() { </span><span style="color:#ffb964;">test -f </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">env</span><span style="color:#556633;">&quot; </span><span>&amp;&amp; . </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">env</span><span style="color:#556633;">&quot; </span><span>&gt;| </span><span style="color:#ffb964;">/dev/null </span><span>; }
+</span><span>
+</span><span style="color:#fad07a;">agent_start </span><span>() {
+</span><span>    (umask 077; </span><span style="color:#ffb964;">ssh-agent </span><span>&gt;| </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">env</span><span style="color:#556633;">&quot;</span><span>)
+</span><span>    . </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">env</span><span style="color:#556633;">&quot; </span><span>&gt;| </span><span style="color:#ffb964;">/dev/null </span><span>; }
+</span><span>
+</span><span style="color:#ffb964;">agent_load_env
+</span><span>
+</span><span style="color:#888888;"># agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
+</span><span style="color:#ffb964;">agent_run_state</span><span>=</span><span style="color:#99ad6a;">$(</span><span style="color:#ffb964;">ssh-add -l </span><span style="color:#99ad6a;">&gt;| </span><span style="color:#ffb964;">/dev/null </span><span style="color:#cf6a4c;">2</span><span style="color:#99ad6a;">&gt;&amp;</span><span style="color:#cf6a4c;">1</span><span style="color:#99ad6a;">; echo $</span><span style="color:#ffb964;">?</span><span style="color:#99ad6a;">)
+</span><span>
+</span><span style="color:#8fbfdc;">if </span><span>[ ! </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">SSH_AUTH_SOCK</span><span style="color:#556633;">&quot; </span><span>] || [ $</span><span style="color:#ffb964;">agent_run_state </span><span>= 2 ]; </span><span style="color:#8fbfdc;">then
+</span><span>    </span><span style="color:#ffb964;">agent_start
+</span><span>    </span><span style="color:#ffb964;">ssh-add
+</span><span style="color:#8fbfdc;">elif </span><span>[ </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$</span><span style="color:#ffb964;">SSH_AUTH_SOCK</span><span style="color:#556633;">&quot; </span><span>] &amp;&amp; [ $</span><span style="color:#ffb964;">agent_run_state </span><span>= 1 ]; </span><span style="color:#8fbfdc;">then
+</span><span>    </span><span style="color:#ffb964;">ssh-add
+</span><span style="color:#8fbfdc;">fi
+</span><span>
+</span><span>unset env
+</span></code></pre>
+
+        </div>
+
+</div>
+
+        </div>
+
+        
+<footer class="footer">
+    <div class="footer__inner">
+        <div class="copyright">
+            <span> netDryad // <a href="https:&#x2F;&#x2F;netDryad.github.io">Index</a> // <a
+                    href="https://github.com/netDryad/">Github</a></span>
+            </div>
+        </div>
+</footer>
+
+
+    </div>
+    </body>
+
+</html>

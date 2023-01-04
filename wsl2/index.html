@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>netDryad</title>
+    
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="robots" content="noodp" />
+
+<link rel="stylesheet" href="https://netDryad.github.io/style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="https://netDryad.github.io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://netDryad.github.io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://netDryad.github.io/favicon-16x16.png">
+<link rel="manifest" href="https://netDryad.github.io/site.webmanifest">
+
+    </head>
+
+<body class="">
+    <div class="container">
+        
+        <header class="header">
+            <div class="header__inner">
+                <div class="header__logo">
+                    
+                    <a href="https://netDryad.github.io" style="text-decoration: none;">
+                        <div class="logo">
+                            
+                            netDryad
+                            
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            
+            
+            
+        </header>
+        
+
+        <div class="content">
+            
+<div class="post">
+    
+    <h1 class="post-title"><a href="https://netDryad.github.io/wsl2/">WSL2</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-01-02
+        </span>
+
+    </div>
+
+    
+
+    
+        <div class="post-content">
+            <p>Setting up WSL(Windows Sublayer Linux) is pretty straightforward but there are a couple unintuitive features that crop up.</p>
+<h1 id="requirements">Requirements</h1>
+<p>Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11</p>
+<h1 id="install">Install</h1>
+<p>Open a <code>PowerShell</code> command prompt as <strong>administrator</strong>. Then run:</p>
+<pre data-lang="PowerShell" style="background-color:#151515;color:#e8e8d3;" class="language-PowerShell "><code class="language-PowerShell" data-lang="PowerShell"><span>wsl --install -d &lt;Distribution Name&gt;
+</span></code></pre>
+<p>Replace <code>&lt;Distribution Name&gt;</code> with the distribution you would like to install. You can run <code>wsl -l -o</code> to see a list of ones available.</p>
+<p>If you run <code>wsl --install</code> it'll install ubuntu for you by default.</p>
+<p>If you want to change this default you can run <code>wsl -s &lt;DistributionName&gt;</code> to change the default distibution.</p>
+<h1 id="windows-terminal">Windows Terminal</h1>
+<p>This step is optional but windows terminal makes it easy to manage all of the different distributions you might use as well as use any other terminals such as PowerShell. </p>
+<p>You can download it from the (windows app store)[https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701] or from (github releases)[https://github.com/microsoft/terminal/releases]</p>
+<h1 id="networking-firewall">Networking &amp; Firewall</h1>
+<p>This is this biggest issue with WSL2. It's not actually a windows sublayer but small virtual machine running on HyperV. This means that it has it's own virtual network. If you are running services on Windows you can't access directly with <code>localhost</code> like you could in WSL1. </p>
+<p>In PowerShell run:</p>
+<pre data-lang="PowerShell" style="background-color:#151515;color:#e8e8d3;" class="language-PowerShell "><code class="language-PowerShell" data-lang="PowerShell"><span>ipconfig
+</span></code></pre>
+<p>Near the bottom of the list you should see <code>Ethernet adapter vEthernet (WSL):</code> and the IPv4 Address. You can use this to connect to your windows services. </p>
+<blockquote>
+<p>Note that is IP can change when you restart.</p>
+</blockquote>
+<h2 id="firewall">Firewall</h2>
+<p>To make the networking situation even more difficult Windows Defender or any other firewall you have installed treat WSL like an external network so you probably have to allow access of individual programs.</p>
+<p>To do this got to settings &gt; type firewall &gt; select Windows Defender Firewall &gt; select advanced settings</p>
+<p>On the main screen in the overview select <code>Windows Defender Firewall Properties</code></p>
+<p>On the popup in <code>firewall state:</code> select the <code>Customize</code> button. Uncheck <code>vEthernet(WSL)</code> then click Ok. Do this for each of the <code>Domain Profile</code>, <code>Private Profile</code>, and <code>Public Profile</code> tabs at the top of the popup.</p>
+<p>Now you should be able to ping the address you got from <code>ipconfig</code> that you ran earlier. From your WSL command prompt run (replace xxx.xxx.xxx.xxx with the ip address you got earlier):</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">ping</span><span> xxx.xxx.xxx.xxx
+</span></code></pre>
+<p>To access a service such as a proxy you should be able to use the ip and port number. For example if you have a proxy running on port 8090 you can run:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">curl -x</span><span> xxx.xxx.xxx.xxx:8090 wwww.google.com
+</span></code></pre>
+<h2 id="other-guides">Other guides</h2>
+<p><a href="https://learn.microsoft.com/en-us/windows/wsl/setup/environment">microsoft tutorial</a></p>
+
+        </div>
+
+</div>
+
+        </div>
+
+        
+<footer class="footer">
+    <div class="footer__inner">
+        <div class="copyright">
+            <span> netDryad // <a href="https:&#x2F;&#x2F;netDryad.github.io">Index</a> // <a
+                    href="https://github.com/netDryad/">Github</a></span>
+            </div>
+        </div>
+</footer>
+
+
+    </div>
+    </body>
+
+</html>

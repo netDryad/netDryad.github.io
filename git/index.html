@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>netDryad</title>
+    
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="robots" content="noodp" />
+
+<link rel="stylesheet" href="https://netDryad.github.io/style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="https://netDryad.github.io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://netDryad.github.io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://netDryad.github.io/favicon-16x16.png">
+<link rel="manifest" href="https://netDryad.github.io/site.webmanifest">
+
+    </head>
+
+<body class="">
+    <div class="container">
+        
+        <header class="header">
+            <div class="header__inner">
+                <div class="header__logo">
+                    
+                    <a href="https://netDryad.github.io" style="text-decoration: none;">
+                        <div class="logo">
+                            
+                            netDryad
+                            
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            
+            
+            
+        </header>
+        
+
+        <div class="content">
+            
+<div class="post">
+    
+    <h1 class="post-title"><a href="https://netDryad.github.io/git/">Git</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2022-11-25
+        </span>
+
+    </div>
+
+    
+
+    
+        <div class="post-content">
+            <p>Git is the most commonly used version control system. Most software projects use git to enable collaberation between multiple developers.</p>
+<h1 id="creating-copying">Creating &amp; Copying</h1>
+<p>To create a new git project run：</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> init
+</span></code></pre>
+<p>To copy an exisiting repository:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> clone &lt;git url&gt;
+</span></code></pre>
+<h1 id="basic-commits">Basic Commits</h1>
+<p>To get the status of the current commit such as branch, tracked and untracked files:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> status
+</span></code></pre>
+<p>To get add all changed files to the staging area:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> add</span><span style="color:#ffb964;"> -A
+</span><span>
+</span><span style="color:#ffb964;">git</span><span> add</span><span style="color:#ffb964;"> --all
+</span></code></pre>
+<p>To remove staged files:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> rm</span><span style="color:#ffb964;"> --cached </span><span>&lt;file&gt;
+</span></code></pre>
+<p>To commit changes:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> commit</span><span style="color:#ffb964;"> -m </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">[commit message]</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>To set the time of a commit:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> commit</span><span style="color:#ffb964;"> --date</span><span>=2014-09-28T01:00:00+0000</span><span style="color:#ffb964;"> -m </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">[commit message]</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>To push a specific branch to the remote repository:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> push origin &lt;branch name&gt;
+</span></code></pre>
+<h1 id="getting-updates">Getting updates</h1>
+<p>To pull the latest updates run:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> pull
+</span></code></pre>
+<h1 id="logs">Logs</h1>
+<p>To see the full list of commits:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> log
+</span></code></pre>
+<p>To see a brief list:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> log</span><span style="color:#ffb964;"> --oneline
+</span></code></pre>
+<h1 id="settings">Settings</h1>
+<p>List current settings:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> -l
+</span></code></pre>
+<p>Name and email associated with the commit can be changed with.</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> user.email </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">EMAIL</span><span style="color:#556633;">&quot;
+</span><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> user.name </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">NAME</span><span style="color:#556633;">&quot;
+</span></code></pre>
+<p>Enable commit signing and use an SSH key instead of GPG key. Lastly add your SSH key:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> commit.gpgsign true
+</span><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> gpg.format ssh
+</span><span style="color:#ffb964;">git</span><span> config</span><span style="color:#ffb964;"> --global</span><span> user.signingkey /PATH/TO/.SSH/KEY.PUB
+</span></code></pre>
+<h1 id="github-new-repo-instructions">Github New Repo Instructions</h1>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">git</span><span> remote add origin https://github.com/netDryad/site.git
+</span><span style="color:#ffb964;">git</span><span> branch</span><span style="color:#ffb964;"> -M</span><span> main
+</span><span style="color:#ffb964;">git</span><span> push</span><span style="color:#ffb964;"> -u</span><span> origin main
+</span></code></pre>
+
+        </div>
+
+</div>
+
+        </div>
+
+        
+<footer class="footer">
+    <div class="footer__inner">
+        <div class="copyright">
+            <span> netDryad // <a href="https:&#x2F;&#x2F;netDryad.github.io">Index</a> // <a
+                    href="https://github.com/netDryad/">Github</a></span>
+            </div>
+        </div>
+</footer>
+
+
+    </div>
+    </body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>netDryad</title>
+    
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="robots" content="noodp" />
+
+<link rel="stylesheet" href="https://netDryad.github.io/style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="https://netDryad.github.io/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://netDryad.github.io/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://netDryad.github.io/favicon-16x16.png">
+<link rel="manifest" href="https://netDryad.github.io/site.webmanifest">
+
+    </head>
+
+<body class="">
+    <div class="container">
+        
+        <header class="header">
+            <div class="header__inner">
+                <div class="header__logo">
+                    
+                    <a href="https://netDryad.github.io" style="text-decoration: none;">
+                        <div class="logo">
+                            
+                            netDryad
+                            
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            
+            
+            
+        </header>
+        
+
+        <div class="content">
+            
+<div class="post">
+    
+    <h1 class="post-title"><a href="https://netDryad.github.io/zola/">Zola</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2022-11-23
+        </span>
+
+    </div>
+
+    
+
+    
+        <div class="post-content">
+            <p>Zola is a static site generator that is used to build this site.</p>
+<p><a href="https://www.getzola.org/documentation/getting-started/installation/">Zola Docs</a>.</p>
+<h1 id="docker">Docker</h1>
+<hr />
+<p>To run with docker first pull the latest version:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">docker</span><span> pull ghcr.io/getzola/zola:v0.16.1
+</span></code></pre>
+<p>To run with live reload:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">docker</span><span> run</span><span style="color:#ffb964;"> -u </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$(</span><span style="color:#ffb964;">id -u</span><span style="color:#99ad6a;">):$(</span><span style="color:#ffb964;">id -g</span><span style="color:#99ad6a;">)</span><span style="color:#556633;">&quot;</span><span style="color:#ffb964;"> -v </span><span>$</span><span style="color:#ffb964;">PWD</span><span>:/app</span><span style="color:#ffb964;"> --workdir</span><span> /app</span><span style="color:#ffb964;"> -p</span><span> 8080:8080</span><span style="color:#ffb964;"> -p</span><span> 1024:1024 ghcr.io/getzola/zola:v0.16.1 serve</span><span style="color:#ffb964;"> --interface</span><span> 0.0.0.0</span><span style="color:#ffb964;"> --port</span><span> 8080</span><span style="color:#ffb964;"> --base-url</span><span> localhost
+</span></code></pre>
+<p>To run without live reload: </p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">docker</span><span> run</span><span style="color:#ffb964;"> -u </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$(</span><span style="color:#ffb964;">id -u</span><span style="color:#99ad6a;">):$(</span><span style="color:#ffb964;">id -g</span><span style="color:#99ad6a;">)</span><span style="color:#556633;">&quot;</span><span style="color:#ffb964;"> -v </span><span>$</span><span style="color:#ffb964;">PWD</span><span>:/app</span><span style="color:#ffb964;"> --workdir</span><span> /app</span><span style="color:#ffb964;"> -p</span><span> 8080:8080 ghcr.io/getzola/zola:v0.16.1 serve</span><span style="color:#ffb964;"> --interface</span><span> 0.0.0.0</span><span style="color:#ffb964;"> --port</span><span> 8080</span><span style="color:#ffb964;"> --base-url</span><span> localhost
+</span></code></pre>
+<p>To build:</p>
+<pre data-lang="sh" style="background-color:#151515;color:#e8e8d3;" class="language-sh "><code class="language-sh" data-lang="sh"><span style="color:#ffb964;">docker</span><span> run</span><span style="color:#ffb964;"> -u </span><span style="color:#556633;">&quot;</span><span style="color:#99ad6a;">$(</span><span style="color:#ffb964;">id -u</span><span style="color:#99ad6a;">):$(</span><span style="color:#ffb964;">id -g</span><span style="color:#99ad6a;">)</span><span style="color:#556633;">&quot;</span><span style="color:#ffb964;"> -v </span><span>$</span><span style="color:#ffb964;">PWD</span><span>:/app</span><span style="color:#ffb964;"> --workdir</span><span> /app ghcr.io/getzola/zola:v0.16.1 build
+</span></code></pre>
+<h1 id="deploy">Deploy</h1>
+<hr />
+<p>Zola can be easily set up to automatically build and deploy the updated version when you push new commits. Here we take a look at using github actions to deploy to github pages but zola has many deployment options that are detailed in the docs <a href="https://www.getzola.org/documentation/deployment/overview/">docs</a>.</p>
+<p>Keep the source in a private repo and use github actions to automatically build and deploy it to github pages. This lets us keep draft posts private and all people see is the final release.</p>
+<p>First create a github access token by going to <a href="https://github.com/settings/tokens/new">Settings &gt; Developer Settings &gt; Personal access tokens</a>. Give it permission for repos. Then copy the token. </p>
+<p>Go to navigate your private repository and add in the Settings tab select <a href="https://github.com/netDryad/site/settings/secrets/actions">Secerts &gt; Actions</a> and create a new token. Give it a name paste your token in it.</p>
+<p>Next we need to create the Github Action. Go to the Actions tab of your repository, click on set up a workflow yourself at the top to get a blank workflow file. Copy the following script into it and commit it afterwards </p>
+<blockquote>
+<p>Note: change branch if using something other than main, the repo name username/username.github.io that it deploys to, and TOKEN with whatever you named your token).</p>
+</blockquote>
+<p>This action builds when pushing to the main branch of the private repo and automicatly deploys the new build to your public github.io repo.</p>
+<pre data-lang="yml" style="background-color:#151515;color:#e8e8d3;" class="language-yml "><code class="language-yml" data-lang="yml"><span>on: </span><span style="color:#99ad6a;">push
+</span><span style="color:#ffb964;">jobs</span><span>:
+</span><span>  </span><span style="color:#ffb964;">build</span><span>:
+</span><span>    </span><span style="color:#ffb964;">runs-on</span><span>: </span><span style="color:#99ad6a;">ubuntu-latest
+</span><span>    </span><span style="color:#ffb964;">if</span><span>: </span><span style="color:#99ad6a;">github.ref != &#39;refs/heads/main&#39;
+</span><span>    </span><span style="color:#ffb964;">steps</span><span>:
+</span><span>      - </span><span style="color:#ffb964;">name</span><span>: </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">checkout</span><span style="color:#556633;">&#39;
+</span><span>        </span><span style="color:#ffb964;">uses</span><span>: </span><span style="color:#99ad6a;">actions/checkout@v3.0.0
+</span><span>      - </span><span style="color:#ffb964;">name</span><span>: </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">build</span><span style="color:#556633;">&#39;
+</span><span>        </span><span style="color:#ffb964;">uses</span><span>: </span><span style="color:#99ad6a;">shalzz/zola-deploy-action@v0.16.1
+</span><span>        </span><span style="color:#ffb964;">env</span><span>:
+</span><span>          </span><span style="color:#ffb964;">PAGES_BRANCH</span><span>: </span><span style="color:#99ad6a;">gh-pages
+</span><span>          </span><span style="color:#ffb964;">BUILD_DIR</span><span>: </span><span style="color:#cf6a4c;">.
+</span><span>          </span><span style="color:#ffb964;">TOKEN</span><span>: </span><span style="color:#99ad6a;">${{ secrets.TOKEN }}
+</span><span>          </span><span style="color:#888888;"># BUILD_ONLY: true
+</span><span>  </span><span style="color:#ffb964;">build_and_deploy</span><span>:
+</span><span>    </span><span style="color:#ffb964;">runs-on</span><span>: </span><span style="color:#99ad6a;">ubuntu-latest
+</span><span>    </span><span style="color:#ffb964;">if</span><span>: </span><span style="color:#99ad6a;">github.ref == &#39;refs/heads/main&#39;
+</span><span>    </span><span style="color:#ffb964;">steps</span><span>:
+</span><span>      - </span><span style="color:#ffb964;">name</span><span>: </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">checkout</span><span style="color:#556633;">&#39;
+</span><span>        </span><span style="color:#ffb964;">uses</span><span>: </span><span style="color:#99ad6a;">actions/checkout@v3.0.0
+</span><span>      - </span><span style="color:#ffb964;">name</span><span>: </span><span style="color:#556633;">&#39;</span><span style="color:#99ad6a;">build and deploy</span><span style="color:#556633;">&#39;
+</span><span>        </span><span style="color:#ffb964;">uses</span><span>: </span><span style="color:#99ad6a;">shalzz/zola-deploy-action@v0.16.1
+</span><span>        </span><span style="color:#ffb964;">env</span><span>:
+</span><span>          </span><span style="color:#ffb964;">PAGES_BRANCH</span><span>: </span><span style="color:#99ad6a;">master
+</span><span>          </span><span style="color:#ffb964;">BUILD_DIR</span><span>: </span><span style="color:#cf6a4c;">.
+</span><span>          </span><span style="color:#ffb964;">TOKEN</span><span>: </span><span style="color:#99ad6a;">${{ secrets.TOKEN }}
+</span><span>          </span><span style="color:#ffb964;">REPOSITORY</span><span>: </span><span style="color:#99ad6a;">username/username.github.io
+</span></code></pre>
+<h1 id="theme">Theme</h1>
+<hr />
+<p>Zola offers many <a href="https://www.getzola.org/themes/">prebuilt themes</a>. This site uses a slightly modified version of the <a href="https://github.com/pawroman/zola-theme-terminimal">terminimal theme</a>.</p>
+
+        </div>
+
+</div>
+
+        </div>
+
+        
+<footer class="footer">
+    <div class="footer__inner">
+        <div class="copyright">
+            <span> netDryad // <a href="https:&#x2F;&#x2F;netDryad.github.io">Index</a> // <a
+                    href="https://github.com/netDryad/">Github</a></span>
+            </div>
+        </div>
+</footer>
+
+
+    </div>
+    </body>
+
+</html>
